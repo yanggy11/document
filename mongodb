@@ -1,0 +1,81 @@
+## mongodb安装配置
+
+官网下载mongodb.zip文件
+
+解压
+
+进入mongodb
+
+创建data、etc、logs文件夹
+
+etc中创建mongo.conf文件
+```
+  dbpath=D:\Program Files\mongodb\data
+  logpath=D:\Program Files\mongodb\logs\mongo.log
+  logappend=true
+  journal=true
+  quiet=true
+  port=27017
+```
+
+logs中创建mogo.log文件
+
+启动mongodb
+
+```
+mongod --config ..\etc\mongo.conf
+```
+
+连接mongo
+```
+mongo.exe
+```
+
+创建mongo用户
+
+1.创建管理员用户
+```
+show dbs
+
+use admin
+
+db.createUser({
+  user:"admin",
+  pwd:"admin",
+  roles:[{
+    role:"AdminAnyDatabase",
+    db:"admin"
+  }]
+})
+```
+
+2.创建普通用户
+
+```
+use yanggy
+
+db.createUser({
+  user:"yanggy",
+  pwd:"admin",
+  roles:[{
+    role:"readWrite",
+    db:"admin"
+  }]
+})
+```
+
+配置文件中新增权限属性
+
+```
+auth=true
+```
+
+
+重新启动mongodb,登录mongo
+```
+use yangg
+
+db.auth("userName","password")
+```
+
+如此这般之后，即可通过userName 和password登录连接mongo。
